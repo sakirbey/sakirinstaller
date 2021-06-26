@@ -2,7 +2,7 @@
 ### SiriUserbot Otomatik Deployer
 
 [Sakir UserBot Reposu](https://github.com/sakirbey/Sak-rUserBot)
-[Sakir UserBot Reposu](https://github.com/sakirbey/Sak-rUserBot)
+
 
 ## Kurulum
 ```sh
