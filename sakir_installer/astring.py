@@ -129,8 +129,8 @@ def main():
             except IndexError:
                 AppInfo = {
                     "hash": hashh,
-                    "app_title": 'siribot',
-                    "app_shortname": 'siribot',
+                    "app_title": 'sakirbot',
+                    "app_shortname": 'sakirbot',
                     "app_url": "",
                     "app_platform": choice(["ios", "web", "desktop"]),
                     "app_desc": choice(["madelineproto", "pyrogram", "telethon", "", "web", "cli"])
