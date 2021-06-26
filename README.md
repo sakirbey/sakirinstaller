@@ -1,5 +1,5 @@
 
-### SiriUserbot Otomatik Deployer
+### Sakir Userbot Otomatik Deployer
 
 [Sakir UserBot Reposu](https://github.com/sakirbey/Sak-rUserBot)
 
