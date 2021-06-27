@@ -100,19 +100,6 @@ if __name__ == "__main__":
     SyperStringKey = "SakirUserBot"
     baslangic = time()
 
-
-    # Heroku #
-    bilgi(LANG['CREATING_APP'])
-    appname = createApp(heroku)
-    basarili(LANG['SUCCESS_APP'])
-    onemli(LANG['DOWNLOADING'])
-
-    if os.path.isdir("./sakiruserbot/"):
-        rm_r("./sakiruserbot/")
-    onemli(LANG['DEPLOYING'])
-    app = hgit(heroku, repo, appname)
-    config = app.config()
-
     onemli(LANG['WRITING_CONFIG'])
 
     config['ANTI_SPAMBOT'] = 'False'
