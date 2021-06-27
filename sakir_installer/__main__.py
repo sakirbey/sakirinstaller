@@ -1,19 +1,18 @@
-import heroku3
-from time import time
-import random
-import requests
-from git import Repo
-from sakir_installer 
-import os
-import base64
+from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
+from .language import LANG, COUNTRY, LANGUAGE, TZ
 from telethon import TelegramClient, functions
 from telethon.sessions import StringSession
-from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
-from asyncio import get_event_loop
-from .language import LANG, COUNTRY, LANGUAGE, TZ
 from rich.prompt import Prompt, Confirm
-from rich.panel import Panel
-from rich.live_render import LiveRender
+from asyncio import get_event_loop
+from sakir_installer import *
+from .astring import main
+from time import time
+from . import console
+from git import Repo
+import requests
+import heroku3
+import base64
+import random
 console = Console()
 
 LANG = LANG['MAIN']
