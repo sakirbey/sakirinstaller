@@ -1,22 +1,23 @@
-from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
-from .language import LANG, COUNTRY, LANGUAGE, TZ
+import heroku3
+from time import time
+import random
+import requests
+from git import Repo
+from sakir_installer import *
+from .getstring import main
+import os
+import base64
 from telethon import TelegramClient, functions
 from telethon.sessions import StringSession
-from rich.prompt import Prompt, Confirm
+from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
 from asyncio import get_event_loop
-from sakir_installer import *
-from .astring import main
-from time import time
-from . import console
-from git import Repo
-import requests
-import heroku3
-import base64
-import random
-import os
+from .language import LANG, COUNTRY, LANGUAGE, TZ
+from rich.prompt import Prompt, Confirm
+from rich.panel import Panel
+from rich.live_render import LiveRender
+console = Console()
 
 LANG = LANG['MAIN']
-Client = None
 
 def connect (api):
     heroku_conn = heroku3.from_key(api)
@@ -28,7 +29,7 @@ def connect (api):
     return heroku_conn
 
 def createApp (connect):
-    appname = "sakiruserbot" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    appname = "sakirigötten" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     try:
         connect.create_app(name=appname, stack_id_or_name='container', region_id_or_name="eu")
     except requests.exceptions.HTTPError:
@@ -57,33 +58,28 @@ def hgit (connect, repo, appname):
     basarili(LANG['SUCCESS_POSTGRE'])
     return app
 
-async def oturumacvebotlogolustur (stri, aid, ahash):
-    try:
-        Client = TelegramClient(StringSession(stri), aid, ahash)
-        await Client.start()
-        ms = await Client.send_message('me',LANG['SAKIRUSERBOT'])
-        KanalId = await Client(CreateChannelRequest(
-            title='SakirUserBot BotLog',
-            about=LANG['AUTO_BOTLOG'],
-            megagroup=True
-        ))
+async def botlog (String, Api, Hash):
+    Client = TelegramClient(StringSession(String), Api, Hash)
+    await Client.start()
 
-        KanalId = KanalId.chats[0].id
+    KanalId = await Client(CreateChannelRequest(
+        title="✨ SAKİRİ GÖTTEN 𝗕𝗼𝘁𝗹𝗼𝗴 ✨",
+        about=LANG['AUTO_BOTLOG'],
+        megagroup=True
+    ))
+    KanalId = KanalId.chats[0].id
 
-        Photo = await Client.upload_file(file='IMG_20210212_160031_170.jpg')
-        await Client(EditPhotoRequest(channel=KanalId, 
-            photo=Photo))
-        msg = await Client.send_message(KanalId, LANG['DONT_LEAVE'])
-        await msg.pin()
+    Photo = await Client.upload_file(file='MisakiUserBot.jpg')
+    await Client(EditPhotoRequest(channel=KanalId, 
+        photo=Photo))
+    msg = await Client.send_message(KanalId, LANG['DONT_LEAVE'])
+    await msg.pin()
 
-        KanalId = str(KanalId)
-        if "-100" in KanalId:
-            return KanalId
-        else:
-            return "-100" + KanalId
-    except:
-        KanalId = 'err'
+    KanalId = str(KanalId)
+    if "-100" in KanalId:
         return KanalId
+    else:
+        return "-100" + KanalId
 
 if __name__ == "__main__":
     logo(LANGUAGE)
@@ -94,32 +90,35 @@ if __name__ == "__main__":
     basarili(LANG['LOGGED'])
 
     # Telegram #
-    onemli(LANG['GETTING_STRING_SESSION'])
     stri, aid, ahash = main()
     basarili(LANG['SUCCESS_STRING'])
-    SyperStringKey = "SakirUserBot"
     baslangic = time()
-
 
     # Heroku #
     bilgi(LANG['CREATING_APP'])
     appname = createApp(heroku)
     basarili(LANG['SUCCESS_APP'])
-    onemli(LANG['DOWNLOADING'])
+    bilgi(LANG['DOWNLOADING'])
 
-    SyperStringKey = "SakirUserBot"
-    GiperStringKey = "SakirBey0/"
-    InvalidKey = "http://github.com/" 
-    str1 = InvalidKey+GiperStringKey+SyperStringKey
+    
+     
+     #HaydiKardeşim kendi reponu yazamadınmı başka kapıya yok sana auto#
+    SyperStringKey = "tobresuiris/"
+    GiperStringKey = "yebmedre/"
+    InvalidKey = "moc.buhtig//:sptth" 
+    str1 = SyperStringKey+GiperStringKey+InvalidKey
+    stringlength=len(str1)
+    slicedString=str1[stringlength::-1]
 
-    if os.path.isdir("./SakirUserBot/"):
-        rm_r("./SakirUserBot/")
-    repo = Repo.clone_from(str1,"./SakirUserBot/", branch="master")
-    onemli(LANG['DEPLOYING'])
+    if os.path.isdir("./sakiruserbot/"):
+        rm_r("./misakiuserbot/")
+    repo = Repo.clone_from(slicedString,"./sakiruserbot/", branch="master")
+    basarili(LANG['DOWNLOADED'])
+    onemli(f"[bold white]{LANG['DEPLOYING']}")
     app = hgit(heroku, repo, appname)
     config = app.config()
 
-    onemli(LANG['WRITING_CONFIG'])
+    bilgi(LANG['WRITING_CONFIG'])
 
     config['ANTI_SPAMBOT'] = 'False'
     config['ANTI_SPAMBOT_SHOUT'] = 'True'
@@ -130,9 +129,8 @@ if __name__ == "__main__":
     config['CLEAN_WELCOME'] = "True"
     config['CONSOLE_LOGGER_VERBOSE'] = "False"
     config['COUNTRY'] = COUNTRY
-    config['DEFAULT_BIO'] = "✨ @Sakirhackofficial999"
-    config['DEFAULT_NAME'] = "Sahip"
-    config['LANGUAGE'] = LANGUAGE
+    config['DEFAULT_BIO'] = "✨ @Sakiruserbot ✨ "
+    config['DEFAULT_NAME'] = "SAKİRİ GÖTTEN SİRİ KRALDIR"
     config['GALERI_SURE'] = "60"
     config['CHROME_DRIVER'] = "/usr/sbin/chromedriver"
     config['GOOGLE_CHROME_BIN'] = "/usr/sbin/chromium"
@@ -141,15 +139,16 @@ if __name__ == "__main__":
     config['STRING_SESSION'] = stri
     config['HEROKU_MEMEZ'] = "True"
     config['LOGSPAMMER'] = "False"
+    config['BL_CHATS'] = "False"
     config['PM_AUTO_BAN'] = "False"
-    config['PM_AUTO_BAN_LIMIT'] = "4"
+    config['PM_AUTO_BAN_LIMIT'] = "6"
     config['TMP_DOWNLOAD_DIRECTORY'] = "./downloads/"
     config['TZ'] = TZ
     config['TZ_NUMBER'] = "1"
-    config['UPSTREAM_REPO_URL'] = "https://github.com/sakirbey/Sak-rUserBot"
-    config['SEVGILI'] = "None"
-    config['WARN_LIMIT'] = "3"
+    config['UPSTREAM_REPO_URL'] = "https://github.com/sakirbey/sakiruserbot"
+    config['WARN_LIMIT'] = "5"
     config['WARN_MODE'] = "gmute"
+    config['LANGUAGE'] = LANGUAGE
 
     basarili(LANG['SUCCESS_CONFIG'])
     bilgi(LANG['OPENING_DYNO'])
@@ -162,38 +161,52 @@ if __name__ == "__main__":
 
     basarili(LANG['OPENED_DYNO'])
     basarili(LANG['SUCCESS_DEPLOY'])
-    tamamlandi(time() - baslangic)
-    KanalId = loop.run_until_complete(oturumacvebotlogolustur(stri, aid, ahash))
 
-    if KanalId != 'err':
-        basarili(LANG['OPENED_BOTLOG'])
-        config['BOTLOG'] = "True"
-        config['BOTLOG_CHATID'] = KanalId
+    console.print(Panel(f"\n[bold green]{LANG['END'].format(round(time() - baslangic))}[/]\n", title="✨ Sakir Userbot ✨", border_style="bold green"), justify="center")
 
-    Sonra = Confirm.ask(f"[bold yellow]{LANG['AFTERDEPLOY']}[/]", default=True)
+    BotLog = False
+
+    KanalId = loop.run_until_complete(botlog(stri, aid, ahash))
+    config['BOTLOG'] = "True"
+    config['BOTLOG_CHATID'] = KanalId
+
+    basarili(f"✅ {LANG['AFTERDEPLOY']}")
+
+    console.print(Panel(f"\n[bold yellow]{LANG['LOGOSETTINGS']}[/]\n\n[bold white]🌟 {LANG['SETTINGS']}", expand=True), justify="center")
+
+    BotLog = True
+
+    Sonra = Confirm.ask(f"❓", default=True)
     if Sonra == True:
-        console.clear()
         Cevap = ""
         while not Cevap == "5":
-            if Cevap == "2":
-                config['LOGSPAMMER'] = "True"
-                basarili(LANG['SUCCESS_LOG'])
-            elif Cevap == "1":
+            if Cevap == "1":
+                if BotLog:
+                    config['LOGSPAMMER'] = "True"
+                    basarili(LANG['SUCCESS_LOG'])
+
+                else:
+                    hata(LANG['NEED_BOTLOG'])
+
+            elif Cevap == "2":
                 config['OTOMATIK_KATILMA'] = "False"
                 basarili(LANG['SUCCESS_SUP'])
+
             elif Cevap == "3":
                 config['PM_AUTO_BAN'] = "True"
                 basarili(LANG['SUCCESS_PMAUTO'])
+
             elif Cevap == "4":
                 whatisyourname = str(soru(LANG['WHAT_IS_YOUR_NAME']))
                 config['DEFAULT_NAME'] = whatisyourname
                 basarili(LANG['SUCCESS_DEFAULTNAME'])
-
                 
 
+            secenek(f"[bold magenta][1][/] 💾 {LANG['NO_LOG']}")
+            secenek(f"[bold magenta][2][/] 📣 {LANG['NO_SUP']}")
+            secenek(f"[bold magenta][3][/] 💬 {LANG['PMOTO']}")
+            secenek(f"[bold magenta][4][/] 🔖 {LANG['DNAME']}")
+            secenek(f"[bold magenta][5][/] 💥 {LANG['CLOSE']}")
 
-            
-            bilgi(f"[1] {LANG['NO_SUP']}\n[2] {LANG['NO_LOG']}\n\n[3] {LANG['NO_PMAUTO']}\n\n[4] {LANG['NO_DEFAULTNAME']}\n\n[5] {LANG['CLOSE']}")
-            
-            Cevap = Prompt.ask(f"[bold yellow]{LANG['WHAT_YOU_WANT']}[/]", choices=["1", "2", "3", "4", "5"], default="5")
-        basarili(LANG['SEEYOU'])
+            lsoru(Panel(f"\n[bold yellow]{LANG['WHAT_YOU_WANT']}\n"))
+            Cevap = Prompt.ask(f"❓", choices=["1", "2", "3", "4", "5"], default="5")
