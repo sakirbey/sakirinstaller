@@ -1,18 +1,19 @@
-from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
-from .language import LANG, COUNTRY, LANGUAGE, TZ
+import heroku3
+from time import time
+import random
+import requests
+from git import Repo
+from sakir_installer 
+import os
+import base64
 from telethon import TelegramClient, functions
 from telethon.sessions import StringSession
-from rich.prompt import Prompt, Confirm
+from telethon.tl.functions.channels import EditPhotoRequest, CreateChannelRequest
 from asyncio import get_event_loop
-from sakir_installer import *
-from .astring import main
-from time import time
-from . import console
-from git import Repo
-import requests
-import heroku3
-import base64
-import random
+from .language import LANG, COUNTRY, LANGUAGE, TZ
+from rich.prompt import Prompt, Confirm
+from rich.panel import Panel
+from rich.live_render import LiveRender
 console = Console()
 
 LANG = LANG['MAIN']
@@ -27,7 +28,7 @@ def connect (api):
     return heroku_conn
 
 def createApp (connect):
-    appname = "sakirigötten" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
+    appname = "sakiribey" + str(time() * 1000)[-4:].replace(".", "") + str(random.randint(0,500))
     try:
         connect.create_app(name=appname, stack_id_or_name='container', region_id_or_name="eu")
     except requests.exceptions.HTTPError:
