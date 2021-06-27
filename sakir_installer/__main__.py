@@ -3,8 +3,7 @@ from time import time
 import random
 import requests
 from git import Repo
-from sakir_installer import *
-from .getstring import main
+from sakir_installer 
 import os
 import base64
 from telethon import TelegramClient, functions
