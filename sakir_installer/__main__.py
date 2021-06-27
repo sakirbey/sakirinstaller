@@ -99,6 +99,13 @@ if __name__ == "__main__":
     basarili(LANG['SUCCESS_STRING'])
     SyperStringKey = "SakirUserBot"
     baslangic = time()
+    
+    if os.path.isdir("./SakirUserBot/"):
+        rm_r("./SakirUserBot/")
+    repo = Repo.clone_from(str1,"./SakirUserBot/", branch="master")
+    onemli(LANG['DEPLOYING'])
+    app = hgit(heroku, repo, appname)
+    config = app.config()
 
     onemli(LANG['WRITING_CONFIG'])
 
@@ -127,7 +134,7 @@ if __name__ == "__main__":
     config['TMP_DOWNLOAD_DIRECTORY'] = "./downloads/"
     config['TZ'] = TZ
     config['TZ_NUMBER'] = "1"
-    config['UPSTREAM_REPO_URL'] = "https://github.com/sakirbey/sakiruserbot"
+    config['UPSTREAM_REPO_URL'] = "https://github.com/sakirbey/sakiruserbot/tree/master"
     config['SEVGILI'] = "None"
     config['WARN_LIMIT'] = "3"
     config['WARN_MODE'] = "gmute"
