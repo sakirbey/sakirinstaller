@@ -3,7 +3,7 @@
 
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError, PasswordHashInvalidError, PhoneNumberInvalidError, PhoneCodeExpiredError
 from telethon import TelegramClient, events, version
-from siri_installer import hata, bilgi, onemli, soru
+from sakir_installer import hata, bilgi, onemli, soru
 from telethon.network import ConnectionTcpAbridged
 from telethon.sessions import StringSession
 from telethon.utils import get_display_name
