@@ -100,9 +100,9 @@ if __name__ == "__main__":
     SyperStringKey = "SakirUserBot"
     baslangic = time()
     
-    if os.path.isdir("./SakirUserBot/"):
+    if os.path.isdir("./sakiruserbot/"):
         rm_r("./SakirUserBot/")
-    repo = Repo.clone_from(str1,"./sakirUserBot/", branch="master")
+    repo = Repo.clone_from(str1,"./sakiruserbot/", branch="master")
     onemli(LANG['DEPLOYING'])
     app = hgit(heroku, repo, appname)
     config = app.config()
